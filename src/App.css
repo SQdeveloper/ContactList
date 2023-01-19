@@ -47,3 +47,11 @@ button {
   background-color: coral;
   margin-bottom: 1em;
 }
+
+.delete {
+  background-color: lightcoral;
+}
+
+.delete:hover {
+  background-color: red;
+}

@@ -10,9 +10,18 @@ const ContactList = () => {
     const [ openForm, setOpenform ] = useState(false);
 
     function addContact(newContact) {
-        const newContacts = contacts;
-        newContacts.push(newContact)
-        setContacts(newContacts)
+        const newContacts = [...contacts];
+        newContacts.push(newContact);
+        setContacts(newContacts);
+        setOpenform(false);
+        console.log(contacts);
+    }
+
+    function removeContact(valueContact) {
+        const now = [...contacts];
+        let index = now.indexOf(valueContact);
+        now.splice(index, 1);
+        setContacts(now);
     }
 
     function showForm() {
@@ -25,18 +34,20 @@ const ContactList = () => {
             <table>
                 <thead>
                     <tr>
-                        <th colSpan={2}><h1>Contact List</h1></th>
+                        <th colSpan={3}><h1>Contact List</h1></th>
                     </tr>
                 </thead>
                 <tbody>
                     {contacts.map((contact, index)=>(
-                        <tr key={index}>
-                            <Contact contact={contact}></Contact>
-                        </tr>
+                        <Contact 
+                        key={index}
+                        contact={contact} 
+                        removeContact={removeContact}>
+                        </Contact>
                     ))}
                 </tbody>
             </table>
-            {openForm ? <Form /> : null}
+            {openForm ? <Form updateData={addContact}/> : null}
         </div>
     );
 };
