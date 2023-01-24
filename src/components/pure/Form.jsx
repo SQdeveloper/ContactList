@@ -1,31 +1,28 @@
 import React, { useRef } from 'react';
-import { ContactModel } from '../models/ContactModel';
+import { ContactModel } from '../models/ContactModel.class';
 
-const Form = ({updateData}) => {
-    const nameRef = useRef();
+const Form = ({ addContact, openForm}) => {
+    const nameRef   = useRef(); 
     const activeRef = useRef();
 
-    function sendUpdate(e) {
+    function add(e) {
         e.preventDefault();
         const newContact  = new ContactModel();
         newContact.name   = nameRef.current.value;
-        if(activeRef.current.value === 'active') {
-            newContact.active = true;
-        }else {
-            newContact.active = false;
-        }
-        updateData(newContact);
+        newContact.active = activeRef.current.value === 'active' ? true : false;
+        addContact(newContact);//Agregamos el nuevo contacto
+        openForm(false);//Quitamos visualmente el formulario
     }
 
     return (
-        <form method='POST' action=''>
-            <label>Name: </label>
-            <input ref={nameRef} id='name' name='name' />
+        <form>
+            <label>name: </label>
+            <input ref={nameRef} name='name' id='name' />
             <select ref={activeRef}>
                 <option>active</option>
                 <option>inactive</option>
             </select>
-            <button onClick={sendUpdate} style={{backgroundColor:'yellow', color:'black'}}type='submit'>Save</button>
+            <button onClick={add} style={{background:'yellow', color:'black', marginLeft:'1em'}}>add</button>
         </form>
     );
 };

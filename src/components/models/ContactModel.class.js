@@ -1,5 +1,5 @@
 export class ContactModel {
-    active = true;
+    active = false;
     name   = '';
 
     constructor(active, name) {
