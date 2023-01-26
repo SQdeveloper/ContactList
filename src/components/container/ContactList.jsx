@@ -20,9 +20,16 @@ const ContactList = () => {
         setVisibleForm(value);
     }
 
-    function removeContact(contact) {
+    function changeActive(contact) {
+        const index = contacts.indexOf(contact);
         const newContact = [...contacts];
-        let index = newContact.indexOf(contact);
+        newContact[index].active = !newContact[index].active;
+        setContact(newContact);
+    }
+
+    function removeContact(contact) {
+        const index = contacts.indexOf(contact);
+        const newContact = [...contacts];
         newContact.splice(index, 1);
         setContact(newContact);
     }
@@ -39,7 +46,13 @@ const ContactList = () => {
                 <tbody>
                     { contacts.map((contact, index) =>{
                         return(
-                            <ContactComponent key={ index } contact={ contact } remove={ removeContact }/>
+                            <ContactComponent 
+                            key          = { index } 
+                            contact      = { contact } 
+                            remove       = { removeContact }
+                            changeActive = { changeActive }
+                            >
+                            </ContactComponent>
                         );
                     }) }
                 </tbody>

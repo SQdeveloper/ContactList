@@ -1,27 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { ContactModel } from '../models/ContactModel.class';
 
-const ContactComponent = ({ contact, remove }) => {
-    const [ccontact, setContact] = useState(contact);
-
-    function changeActive() {
-        const newContact = new ContactModel(!ccontact.active, ccontact.name);
-        setContact(newContact);
-    }
-
+const ContactComponent = ({ contact, remove, changeActive }) => {
     return (
         <tr>
-            <td>{ ccontact.name }</td>
-            <td>{ ccontact.active ? <button onClick={changeActive} style={{backgroundColor:'green'}}>active</button> : <button onClick={changeActive} style={{backgroundColor:'red'}}>inactive</button> }</td>
-            <td><button className='remove' onClick={ ()=>{ remove(ccontact)} }>Remove</button></td>
+            <td>{ contact.name }</td>
+            <td>{ contact.active ? <button onClick={()=> { changeActive(contact) }} style={{backgroundColor:'green'}}>active</button> : <button onClick={()=>{changeActive(contact)}} style={{backgroundColor:'red'}}>inactive</button> }</td>
+            <td><button className='remove' onClick={ ()=>{ remove(contact)} }>Remove</button></td>
         </tr>
     );
 };
 
 ContactComponent.propTypes = {
     contact: PropTypes.instanceOf(ContactModel).isRequired,
-    remove : PropTypes.func.isRequired
+    remove : PropTypes.func.isRequired,
+    changeActive : PropTypes.func.isRequired
 };
 
 export default ContactComponent;
